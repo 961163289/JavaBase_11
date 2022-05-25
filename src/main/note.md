@@ -5,3 +5,4 @@
 5. StringBuffer类
 6. StringBuilder类
 7. Math类
+8. Arrays类
