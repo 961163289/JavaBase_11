@@ -1,6 +1,7 @@
 package Arrays类;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class ArraysMethod01 {
     public static void main(String[] args) {
@@ -28,9 +29,41 @@ public class ArraysMethod01 {
         //6. 这里体现了接口编程的方式,看看源码,就明白了
         //   源码分析
         //   (1) Arrays.sort(arr, new Comparator())
-        Arrays.sort(arr);//默认排序方法
-        System.out.println(Arrays.toString(arr));
+        //   (2) 最终到 TimSort类的 private static void binarySort(Object[] a, int lo, int hi, int start)
+        //   (3) 执行到 binarySort方法的代码,会根据动态绑定机制 c.compare() 执行我们传入的匿名内部类 compare()
+        //      while (left < right) {
+        //         int mid = (left + right) >>> 1;
+        //         if (pivot.compareTo(a[mid]) < 0)
+        //             right = mid;
+        //         else
+        //             left = mid + 1;
+        //      }
+        //   (4)
+        //      new Comparator() {
+        //	        @Override
+        //	        public int compare(Object o1, Object o2) {
+        //	            Integer i1 = (Integer) o1;
+        //	            Integer i2 = (Integer) o2;
+        //	            return i2 - i1;
+        //	        }
+        //	    }
+        //   (5) public int compare(Object o1, Object o2) 返回的值>0 还是 <0
+        //	     会影响整个排序结果, 这就充分体现了 接口编程+动态绑定+匿名内部类的综合使用
+        //	     将来的底层框架和源码的使用方式，会非常常见
 
+        //Arrays.sort(arr);//默认排序方法
+
+        //定制排序
+        Arrays.sort(arr, new Comparator() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                Integer i1 = (Integer) o1;
+                Integer i2 = (Integer) o2;
+                return i1 - i2;
+            }
+        });
+        System.out.println("===排序后===");
+        System.out.println(Arrays.toString(arr));
 
     }
 }
