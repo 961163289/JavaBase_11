@@ -1,6 +1,8 @@
 package Arrays类;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ArraysMethod02 {
     public static void main(String[] args) {
@@ -31,6 +33,26 @@ public class ArraysMethod02 {
         Arrays.fill(num, 99);
         System.out.println("====num 数组填充后====");
         System.out.println(Arrays.toString(num));
+
+        //equals 比较两个数组元素内容是否完全一致
+        Integer[] arr2 = {1, 2, 90, 123, 567};
+        //老韩解读
+        //1. 如果 arr 和 arr2 数组的元素一样,则方法 true
+        //2. 如果不是完全一样,就返回false
+        boolean equals = Arrays.equals(arr, arr2);
+        System.out.println("equals = " + equals);
+
+        //asList 将一组值,转换成 list
+        //老韩解读
+        //1. asList 方法,会将 (2, 3, 4, 5, 6, 1) 数据转成一个 List集合
+        //2. 返回的 asList 编译类型 List(接口)
+        //3. asList 运行类型 java.util.Arrays$ArrayList 是 Arrays 类的
+        //   public class ArrayList<E> extends AbstractList<E>
+        //      implements List<E>, RandomAccess, Cloneable, java.io.Serializable
+        List asList = Arrays.asList(2, 3, 4, 5, 6, 1);
+        List<String> asList1 = new ArrayList();
+        System.out.println("asList = " + asList);
+        System.out.println("asList的运行类型 = " + asList.getClass());
 
     }
 }
